@@ -1,0 +1,4 @@
+Regex_to_DFA:
+
+convertor din infix in postfix: https://www.codespeedy.com/inter-conversion-of-postfix-and-infix-expression-in-python/
+clasa Stack si infix_to_postfix(entry)
