@@ -78,7 +78,7 @@ class RegexTree:
         number_of_states = 0
 
         # set the initial state
-        dfa.q0 = State(set(self.follow_pos[0].tolist()), number_of_states)
+        dfa.q0 = State(set(self.root.first_pos.tolist()), number_of_states)
 
         if self.root.left_child.is_lambda:
             dfa.q0.final = True
@@ -145,9 +145,6 @@ class RegexTree:
 
                 # add them to transition table
             #print('New Transitions ' + str(new_transitions))
-
-            if start_state == dfa.q0 and self.node_pos[0].value not in new_states.keys():
-                new_transitions[self.node_pos[0].value] = start_state
 
             # Create transitions
             for input, state in new_transitions.items():

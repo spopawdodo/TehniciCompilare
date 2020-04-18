@@ -112,32 +112,33 @@ def create_regex_tree(infix_regex):
 regex = '(((((a.b)|a)*).(((a|$).b)*)).#)'
 file = open('Regex_To_Dfa/regex', 'r')
 
-regex = file.read()
-check_brackets(regex)
+# regex = file.read()
+# check_brackets(regex)
 regex = infix_to_postfix(regex)
-#print(regex)
 
 regex_tree = create_regex_tree(regex)
 dfa = regex_tree.convert_to_dfa()
+
+print(regex_tree)
 print(dfa)
-dfa.check_word(dfa.q0, ['a', 'b', 'b', '#'])
+dfa.check_word(dfa.q0, ['a', 'b', 'b', 'b', 'a','#'])
 dfa.check_word(dfa.q0, ['b', '#'])
 dfa.check_word(dfa.q0, ['#'])
-
-G = nx.MultiDiGraph()
-
-for state in dfa.Q:
-    print(state.number)
-    G.add_node(state.number)
-
-G.graph['edge'] = {'arrowsize': '0.6', 'splines': 'curved'}
-G.graph['graph'] = {'scale': '3'}
-
-for transition in dfa.Transitions:
-    #G.add_weighted_edges_from([(transition.first_state.number, transition.second_state.number, transition.input)])
-    G.add_edge(transition.first_state.number, transition.second_state.number)
-
-A = to_agraph(G)
-A.layout('dot')
-A.draw('multi.png')
+#
+# G = nx.MultiDiGraph()
+#
+# for state in dfa.Q:
+#     print(state.number)
+#     G.add_node(state.number)
+#
+# G.graph['edge'] = {'arrowsize': '0.6', 'splines': 'curved'}
+# G.graph['graph'] = {'scale': '3'}
+#
+# for transition in dfa.Transitions:
+#     #G.add_weighted_edges_from([(transition.first_state.number, transition.second_state.number, transition.input)])
+#     G.add_edge(transition.first_state.number, transition.second_state.number)
+#
+# A = to_agraph(G)
+# A.layout('dot')
+# A.draw('multi.png')
 

@@ -14,8 +14,6 @@ SPECIAL_SIGNS = [OPEN_BRACKET, CLOSE_BRACKET, OR, KLEENE_STAR]
 class Node:
     def __init__(self, value, pos=None):
         self.value = value
-        #todo check is is useful
-        self.parent = None
         self.right_child = None
         self.left_child = None
         # used for printing statements
@@ -40,14 +38,6 @@ class Node:
         elif self.value is CONCATENATE:
             self.is_lambda = self.left_child.is_lambda and self.right_child.is_lambda
 
-    # todo check how important is this function
-    def set_parent(self, parent):
-        if parent.is_operator:
-            self.parent = parent
-        else:
-            print("ERROR: Parent must be operator! "+parent.value+' received')
-
-    # can also be modified to direct assignment
     def set_right_child(self, child):
         self.right_child = child
 
