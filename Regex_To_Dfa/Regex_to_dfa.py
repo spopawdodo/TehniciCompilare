@@ -106,14 +106,13 @@ def create_regex_tree(infix_regex):
 
 # Read regular expression
 
-# regex_1 = '((((a|b)*).((a.a)|b)).#)'
-# ['a', 'b', '|', '*', 'a', 'a', '.', 'b', '|', '.']
-
-regex = '(((((a.b)|a)*).(((a|$).b)*)).#)'
+# Regex studied in class
+# regex_1 = '(((((a|(b.b))*).b).(((a.a)|b)*)).#)'
+# regex_2 = '(((((a.b)|a)*).(((a|$).b)*)).#)'
 file = open('Regex_To_Dfa/regex', 'r')
 
-# regex = file.read()
-# check_brackets(regex)
+regex = file.read()
+check_brackets(regex)
 regex = infix_to_postfix(regex)
 
 regex_tree = create_regex_tree(regex)
@@ -121,9 +120,13 @@ dfa = regex_tree.convert_to_dfa()
 
 print(regex_tree)
 print(dfa)
-dfa.check_word(dfa.q0, ['a', 'b', 'b', 'b', 'a','#'])
-dfa.check_word(dfa.q0, ['b', '#'])
-dfa.check_word(dfa.q0, ['#'])
+
+test_words = ['abbba#', 'b#', '#', 'ababb#']
+
+for word in test_words:
+    dfa.check(word)
+
+# todo add graph visualization
 #
 # G = nx.MultiDiGraph()
 #

@@ -17,6 +17,9 @@ class DFA:
         print(self.Transitions)
         return 'Q : ' + str(self.Q) + '\nE : ' + str(self.E) + '\nq0 :' + str(self.q0) + '\nF: ' + str(self.F) + '\n'
 
+    def check(self, word):
+        return self.check_word(self.q0, list(word))
+
     def check_word(self, state, word):
         if state.final and word == ['#']:
             print('Word belongs to DFA')
