@@ -126,22 +126,30 @@ test_words = ['abbba#', 'b#', '#', 'ababb#']
 for word in test_words:
     dfa.check(word)
 
-# todo add graph visualization
-#
-# G = nx.MultiDiGraph()
-#
-# for state in dfa.Q:
-#     print(state.number)
-#     G.add_node(state.number)
-#
-# G.graph['edge'] = {'arrowsize': '0.6', 'splines': 'curved'}
-# G.graph['graph'] = {'scale': '3'}
-#
-# for transition in dfa.Transitions:
-#     #G.add_weighted_edges_from([(transition.first_state.number, transition.second_state.number, transition.input)])
-#     G.add_edge(transition.first_state.number, transition.second_state.number)
-#
-# A = to_agraph(G)
-# A.layout('dot')
-# A.draw('multi.png')
+# graph visualization
+G = nx.MultiDiGraph()
+
+for state in dfa.Q:
+    print(state.number)
+    if state.final:
+        G.add_node(state.number, color='red')
+    else:
+        G.add_node(state.number)
+
+G.graph['edge'] = {'arrowsize': '0.6', 'splines': 'curved'}
+G.graph['graph'] = {'scale': '3'}
+
+transitions = []
+for transition in dfa.Transitions:
+    G.add_weighted_edges_from([(transition.first_state.number, transition.second_state.number, 1)])
+    transitions.append((transition.first_state.number, transition.second_state.number, transition.input))
+
+A = to_agraph(G)
+for edg in A.edges():
+    for t in transitions:
+        if int(edg[0]) == t[0] and int(edg[1]) == t[1]:
+            edg.attr['label'] = t[2]
+
+A.layout('dot')
+A.draw('multi.png')
 
