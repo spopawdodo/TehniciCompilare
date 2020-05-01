@@ -1,3 +1,6 @@
-S->aAb|bC
-A->aA|b
-C->bC|c
+S -> a A b | b C | f D g g u D g | E h | F
+A -> a A | b
+C -> b C | c
+D -> d h D | e e
+E -> h E | g
+F -> g g F | x
